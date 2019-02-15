@@ -2,21 +2,7 @@
 
 const express = require('express');
 const User = require('../../models/User');
-
-const httpResponses = {
-  onValidationError: {
-    success: false,
-    message: 'Please enter username, password and email.'
-  },
-  onUserSaveError: {
-    success: false,
-    message: 'That username already exists.'
-  },
-  onUserSaveSuccess: {
-    success: true,
-    message: 'Successfully created new user.'
-  }
-}
+const httpResponses = require('./');
 
 // Register new users
 function registerUser(request, response) {

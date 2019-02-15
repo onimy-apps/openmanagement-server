@@ -8,17 +8,7 @@ const passport = require('passport');
 const db = require('../../../configs/db');
 
 const User = require('../../models/User');
-
-const httpResponse = {
-  onUserNotFound: {
-    success: false,
-    message: 'User not found.'
-  },
-  onAuthenticationFail: {
-    success: false,
-    message: 'Passwords did not match.'
-  }
-}
+const httpResponse = require('./');
 
 function loginUser(request, response) { 
   let { username, password } = request.body;
