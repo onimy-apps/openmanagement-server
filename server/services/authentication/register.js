@@ -6,11 +6,11 @@ const User = require('../../models/User');
 const httpResponses = {
   onValidationError: {
     success: false,
-    message: 'Please enter email and password.'
+    message: 'Please enter username, password and email.'
   },
   onUserSaveError: {
     success: false,
-    message: 'That email address already exists.'
+    message: 'That username already exists.'
   },
   onUserSaveSuccess: {
     success: true,
@@ -20,18 +20,14 @@ const httpResponses = {
 
 // Register new users
 function registerUser(request, response) {
-  let { email, password } = request.body;
+  let { username, password, email, name } = request.body;
 
-  if (!email || !password) {
+  if (!username || !password || !email) {
     response.json(httpResponses.onValidationError);
   } else {
-    let newUser = new User({
-      email: email,
-      password: password
-    });
-
-    // Attempt to save the user
-    newUser.save(error => {
+    new User({
+      username, password, email, name
+    }).save(error => {
       if (error) {
         return response.json(httpResponses.onUserSaveError);
       }
