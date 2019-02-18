@@ -31,7 +31,7 @@ function loginUser(request, response) {
 
         return response.json({
           success: true,
-          token: 'JWT ' + token,
+          token: `JWT ${token}`,
           id: user._id,
           role: user.role,
           name: user.name
