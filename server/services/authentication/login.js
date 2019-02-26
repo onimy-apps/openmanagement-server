@@ -26,19 +26,19 @@ function loginUser(request, response) {
     user.comparePassword(password, function(error, isMatch) {
       if (isMatch && !error) {
         var token = jwt.sign(user.toJSON(), db.secret, {
-          expiresIn: 10080
+          expiresIn: '1h'
         });
 
         return response.json({
           success: true,
-          token: `JWT ${token}`,
+          token: 'JWT ' + token,
           id: user._id,
           role: user.role,
           name: user.name
         });
       }
 
-      response.send(httpResponse.onAuthenticationFail);
+      return response.send(httpResponse.onAuthenticationFail);
     });
   });
 };
