@@ -8,6 +8,19 @@ function fetch(request, response) {
   });
 }
 
+function update(request, response) {
+  if (request.body.access.role !== 'Admin') {
+    return response.json({ success: false, message: 'Only admin can update their profile' });
+  }
+
+  User.findOneAndUpdate({ username: request.body.profile.username }, request.body.profile)
+    .lean().exec((error, doc) => {
+      if (error) return response.json(error);
+      return response.json({ success: true, message: 'Your profile updated successfully.' });
+    });
+}
+
 module.exports = {
-  fetch: fetch
+  fetch: fetch,
+  update: update
 };

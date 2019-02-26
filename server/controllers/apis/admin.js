@@ -11,5 +11,6 @@ let router = express.Router();
 router.post('/new', passport.authenticate('jwt', { session: false }), newService.new);
 router.get('/list', passport.authenticate('jwt', { session: false }), listService.fetch);
 router.get('/profile', passport.authenticate('jwt', { session: false }), profileService.fetch);
+router.put('/profile/update', passport.authenticate('jwt', { session: false }), profileService.update);
 
 module.exports = router;
