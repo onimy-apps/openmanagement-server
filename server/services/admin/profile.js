@@ -1,4 +1,5 @@
 const User = require('../../models/User');
+const httpResponses = require('./');
 
 function fetch(request, response) {
   User.findOne({ _id: request.query.id }).lean().exec((error, user) => {
@@ -10,13 +11,15 @@ function fetch(request, response) {
 
 function update(request, response) {
   if (request.body.access.role !== 'Admin') {
-    return response.json({ success: false, message: 'Only admin can update their profile' });
+    return response.json(httpResponses.onClientAdminFail);
   }
 
-  User.findOneAndUpdate({ username: request.body.profile.username }, request.body.profile)
+  User.findOneAndUpdate({
+    username: request.body.profile.username
+  }, request.body.profile)
     .lean().exec((error, doc) => {
       if (error) return response.json(error);
-      return response.json({ success: true, message: 'Your profile updated successfully.' });
+      return response.json(httpResponses.onProfileUpdateSuccess);
     });
 }
 
