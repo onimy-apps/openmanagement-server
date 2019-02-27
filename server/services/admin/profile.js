@@ -10,7 +10,7 @@ function fetch(request, response) {
 }
 
 function update(request, response) {
-  if (request.body.access.role !== 'Admin') {
+  if (request.body.access.role.toLowerCase() !== 'admin') {
     return response.json(httpResponses.onClientAdminFail);
   }
 
