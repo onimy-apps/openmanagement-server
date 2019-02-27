@@ -1,4 +1,6 @@
 const User = require('../../models/User');
+const httpResponses = require('./');
+const utils = require('../../utils/admin');
 
 function newEmployee(request, response) {
   if (request.body.access.role.toLowerCase() !== 'admin') {
