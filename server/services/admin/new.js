@@ -3,16 +3,12 @@ const httpResponses = require('./');
 const utils = require('../../utils/admin');
 
 function newEmployee(request, response) {
-  if (request.body.access.role.toLowerCase() !== 'admin') {
-    return response.json(httpResponses.onClientAdminFail);
-  }
+  const { id, role } = request.body.access;
 
-  utils.isAdmin(request.body.access.id)
+  utils.isAdmin(id, role)
     .then(admin => {
       new User(request.body.data)
         .save((error, doc) => {
-          console.log(error);
-          console.log(doc)
           if (error) {
             return response.json({
               success: false,
@@ -32,4 +28,4 @@ function newEmployee(request, response) {
 
 module.exports = {
   new: newEmployee
-}
+};
