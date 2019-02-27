@@ -4,10 +4,7 @@ const utils = require('../../utils/admin');
 
 function newEmployee(request, response) {
   if (request.body.access.role.toLowerCase() !== 'admin') {
-    return response.json({
-      success: false,
-      message: 'Only admin can perform this action.'
-    });
+    return response.json(httpResponses.onClientAdminFail);
   }
   
   new User(request.body)
