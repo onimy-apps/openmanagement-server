@@ -1,7 +1,7 @@
 const Projects = require('../../models/Projects');
 
 function fetch(request, response) {
-  Projects.find({ id: request.query.id }, (error, docs) => {
+  Projects.find({ managerId: request.query.id }, (error, docs) => {
     if (error) return response.json(error.message);
     return response.json(docs);
   });
