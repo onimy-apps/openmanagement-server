@@ -6,7 +6,8 @@ function isAdmin(id, role) {
       .then(() => {
         User.findOne({ _id: id }, (error, doc) => {
           if (error) return reject(false);
-          if (doc.role.toLowerCase() === 'admin') {
+          const role = doc.role.toLowerCase();
+          if (role === 'admin' || role === 'manager') {
             return resolve(true);
           }
         });
@@ -19,10 +20,10 @@ function isAdmin(id, role) {
 
 function checkClientSentControl(role) {
   return new Promise((resolve, reject) => {
-    if (role.toLowerCase() !== 'admin') {
-      return reject(false);
+    if (role.toLowerCase() === 'admin' || role.toLowerCase() === 'manager') {
+      return resolve(true);
     }
-    return resolve(true);
+    return reject(false);
   });
 }
 

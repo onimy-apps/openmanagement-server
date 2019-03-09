@@ -1,17 +1,27 @@
 const Projects = require('../../models/Projects');
+const utils = require('../../utils/admin');
 
 function create(request, response) {
 	let data = request.body.data;
-	let access = request.body.access;
+	const { id, role } = request.body.access;
 
-	data['managerId'] = access.id;
+	data['managerId'] = id;
 
-	new Projects(data)
-		.save((error, doc) => {
-			if (error) return response.json(error);
+	utils.isAdmin(id, role)
+		.then(() => {
+			new Projects(data)
+				.save((error, doc) => {
+					if (error) return response.json(error);
+					return response.json({
+						success: true,
+						message: `${data.name} created successfully.`
+					});
+				});
+		})
+		.catch(error => {
 			return response.json({
-				success: true,
-				message: `${data.name} created successfully.`
+				success: false,
+				message: 'This operation can only be performed by Managers.'
 			});
 		});
 }
