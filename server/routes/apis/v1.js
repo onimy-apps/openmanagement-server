@@ -5,6 +5,7 @@ const loginController = require('../../controllers/apis/login');
 const dashboardController = require('../../controllers/apis/dashboard');
 const adminController = require('../../controllers/apis/admin');
 const employeesController = require('../../controllers/apis/employees');
+const managersController = require('../../controllers/apis/managers');
 
 const express = require('express');
 
@@ -16,5 +17,6 @@ router.use('/dashboard', dashboardController);
 
 router.use('/admin', adminController);
 router.use('/employee', employeesController);
+router.use('/managers', managersController);
 
 module.exports = router;
